@@ -5,35 +5,23 @@
 {% block body %}
     <h1>Tweet index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>Author</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
         {% for tweet in tweets %}
-            <tr>
-                <td>{{ tweet.id }}</td>
-                <td>{{ tweet.content }}</td>
-                <td>{{ tweet.createdAt ? tweet.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tweet.author }}</td>
-                <td>
-                    <a href="{{ path('app_tweet_show', {'id': tweet.id}) }}">show</a>
+            <turbo-frame id="tweet_{{ tweet.id }}" class="border rounded mb-3">
+                <div class="d-flex">
+                    <div class="p-3">{{ tweet.id }}</div>
+                    <div class="p-3">{{ tweet.content }}</div>
+                    <div class="p-3 text-nowrap">{{ tweet.author }}</div>
+                </div>
+                <div class="d-flex gap-3 p-3">
+                    <div>{{ tweet.createdAt ? tweet.createdAt|date('Y-m-d H:i:s') : '' }}</div>
                     <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}">edit</a>
-                </td>
-            </tr>
+                </div>
+            </turbo-frame>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+            <div class="notice">
+                no records found
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
 
     <a href="{{ path('app_tweet_new') }}">Create new</a>
 {% endblock %}

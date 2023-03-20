@@ -5,9 +5,12 @@
 {% block body %}
     <h1>Edit Tweet</h1>
 
-    {{ include('tweet/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_tweet_index') }}">back to list</a>
+    <turbo-frame id="tweet_{{ tweet.id }}">
+        <div class="p-3">
+            {{ include('tweet/_form.html.twig', {'button_label': 'Update'}) }}
+            <a href="{{ path('app_tweet_index') }}">back to list</a>
+        </div>
+    </turbo-frame>
 
     {{ include('tweet/_delete_form.html.twig') }}
 {% endblock %}

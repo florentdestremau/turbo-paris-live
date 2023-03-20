@@ -34,7 +34,7 @@ class TweetController extends AbstractController
             return $this->redirectToRoute('app_tweet_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('tweet/new.html.twig', [
+        return $this->render('tweet/new.html.twig', [
             'tweet' => $tweet,
             'form' => $form,
         ]);
@@ -51,7 +51,9 @@ class TweetController extends AbstractController
     #[Route('/{id}/edit', name: 'app_tweet_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tweet $tweet, TweetRepository $tweetRepository): Response
     {
-        $form = $this->createForm(TweetType::class, $tweet);
+        $form = $this->createForm(TweetType::class, $tweet,
+            ['action' => $this->generateUrl('app_tweet_edit', ['id' => $tweet->getId()])]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +62,7 @@ class TweetController extends AbstractController
             return $this->redirectToRoute('app_tweet_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('tweet/edit.html.twig', [
+        return $this->render('tweet/edit.html.twig', [
             'tweet' => $tweet,
             'form' => $form,
         ]);
