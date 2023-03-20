@@ -13,11 +13,7 @@ class TweetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', TextareaType::class, [
-                'attr' => [
-                    'rows' => 5,
-                ],
-            ])
+            ->add('content', TextareaType::class, ['attr' => ['rows' => 5]])
             ->add('author')
         ;
     }
