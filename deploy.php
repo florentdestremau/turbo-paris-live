@@ -7,16 +7,19 @@ require 'recipe/symfony.php';
 
 set('repository', 'git@github.com:florentdestremau/turbo-paris-live.git');
 
-add('shared_files', []);
-add('shared_dirs', []);
-add('writable_dirs', []);
+add('shared_files', ['.env.local']);
+add('shared_dirs', ['var/log', 'var/sessions']);
+add('writable_dirs', ['var/cache', 'var/log', 'var/sessions', 'public/build']);
 
 // Hosts
 
-host('54.38.41.168')
+host('159.223.213.127')
     ->set('remote_user', 'deployer')
     ->set('deploy_path', '~/paris-live');
 
 // Hooks
-
+task('deploy:build', function () {
+    run('cd {{release_path}} && npm install && npm run build');
+});
+after('deploy:vendors', 'deploy:build');
 after('deploy:failed', 'deploy:unlock');
