@@ -3,37 +3,40 @@
 {% block title %}Tweet index{% endblock %}
 
 {% block body %}
-    <h1>Tweet index</h1>
-
-        {% for tweet in tweets %}
-            <turbo-frame id="tweet_{{ tweet.id }}" class="border rounded mb-3">
-                <div class="d-flex">
-                    <div class="p-3">{{ tweet.id }}</div>
-                    <div class="p-3">{{ tweet.content }}</div>
-                    <div class="p-3 text-nowrap">{{ tweet.author }}</div>
-                </div>
-                <div class="d-flex gap-3 p-3">
-                    <div>{{ tweet.createdAt ? tweet.createdAt|date('D, d M Y H:i:s') : '' }}</div>
-                    <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}">edit</a>
-                    <a href="{{ path('app_tweet_modaledit', {'id': tweet.id}) }}" data-turbo-frame="modal">modal edit</a>
-                </div>
-                <details class="m-3">
-                    <summary>see stats</summary>
-                    <div>
-                        <turbo-frame id="tweet_stats_{{ tweet.id }}" src="{{ path('app_tweet_stats', {'id': tweet.id}) }}" loading="lazy">
-                            <div class="d-flex align-items-center gap-3 ">
-                                <span>Loading...</span>
-                                <span class="spinner"></span>
-                            </div>
-                        </turbo-frame>
-                    </div>
-                </details>
-            </turbo-frame>
-        {% else %}
-            <div class="notice">
-                no records found
+    <div class="d-flex justify-content-between">
+        <h1>Tweets</h1>
+        <img src="{{ asset('sfliveparis_2023.png') }}" alt="SF Live Paris 2023" style="width: 20rem;">
+    </div>
+    {% for tweet in tweets %}
+        <turbo-frame id="tweet_{{ tweet.id }}" class="border rounded mb-3">
+            <div class="d-flex">
+                <div class="p-3">{{ tweet.id }}</div>
+                <div class="p-3">{{ tweet.content }}</div>
+                <div class="p-3 text-nowrap">{{ tweet.author }}</div>
             </div>
-        {% endfor %}
+            <div class="d-flex gap-3 p-3">
+                <div>{{ tweet.createdAt ? tweet.createdAt|date('D, d M Y H:i:s') : '' }}</div>
+                <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}">edit</a>
+                <a href="{{ path('app_tweet_modaledit', {'id': tweet.id}) }}" data-turbo-frame="modal">modal edit</a>
+            </div>
+            <details class="m-3">
+                <summary>see stats</summary>
+                <div>
+                    <turbo-frame id="tweet_stats_{{ tweet.id }}" src="{{ path('app_tweet_stats', {'id': tweet.id}) }}"
+                                 loading="lazy">
+                        <div class="d-flex align-items-center gap-3 ">
+                            <span>Loading...</span>
+                            <span class="spinner"></span>
+                        </div>
+                    </turbo-frame>
+                </div>
+            </details>
+        </turbo-frame>
+    {% else %}
+        <div class="notice">
+            no records found
+        </div>
+    {% endfor %}
 
     <a href="{{ path('app_tweet_new') }}">Create new</a>
 {% endblock %}
