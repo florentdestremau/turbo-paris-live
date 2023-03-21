@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Tweet;
+use App\Form\CreateTweetType;
 use App\Form\TweetType;
 use App\Repository\TweetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class TweetController extends AbstractController
     public function new(Request $request, TweetRepository $tweetRepository): Response
     {
         $tweet = new Tweet();
-        $form = $this->createForm(TweetType::class, $tweet);
+        $form = $this->createForm(CreateTweetType::class, $tweet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
