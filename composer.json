@@ -59,7 +59,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "doctrine:migrations:migrate": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -78,6 +79,7 @@
         }
     },
     "require-dev": {
+        "deployer/deployer": "^7.2",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/debug-bundle": "6.2.*",
         "symfony/stopwatch": "6.2.*",
