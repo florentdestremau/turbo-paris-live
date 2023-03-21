@@ -1,0 +1,28 @@
+@import '../../node_modules/simpledotcss/simple.css';
+@import "../../node_modules/bootstrap/dist/css/bootstrap-utilities.css";
+
+
+@import "node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "node_modules/bootstrap/scss/variables";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "node_modules/bootstrap/scss/maps";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/root";
+@import 'node_modules/bootstrap/scss/modal';
+
+body {
+    background-color: white;
+    padding-bottom: 3rem
+}
+
+.btn-danger {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}

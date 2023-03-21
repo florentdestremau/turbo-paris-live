@@ -17,7 +17,7 @@ class TweetController extends AbstractController
     public function index(TweetRepository $tweetRepository): Response
     {
         return $this->render('tweet/index.html.twig', [
-            'tweets' => $tweetRepository->findAll(),
+            'tweets' => $tweetRepository->findBy([], ['createdAt' => 'DESC']),
         ]);
     }
 
@@ -63,6 +63,26 @@ class TweetController extends AbstractController
         }
 
         return $this->render('tweet/edit.html.twig', [
+            'tweet' => $tweet,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/modal-edit', name: 'app_tweet_modaledit', methods: ['GET', 'POST'])]
+    public function modalEdit(Request $request, Tweet $tweet, TweetRepository $tweetRepository): Response
+    {
+        $form = $this->createForm(TweetType::class, $tweet,
+            ['action' => $this->generateUrl('app_tweet_modaledit', ['id' => $tweet->getId()])]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $tweetRepository->save($tweet, true);
+
+            return $this->redirectToRoute('app_tweet_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tweet/modal_edit.html.twig', [
             'tweet' => $tweet,
             'form' => $form,
         ]);

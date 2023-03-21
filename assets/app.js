@@ -6,9 +6,10 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import 'simpledotcss';
-import 'bootstrap/dist/css/bootstrap-utilities.min.css';
-import './styles/app.css';
+import './styles/app.scss';
 
+import Modal from 'bootstrap/js/src/modal';
 // start the Stimulus application
 import './bootstrap';
+
+window.Modal = Modal;

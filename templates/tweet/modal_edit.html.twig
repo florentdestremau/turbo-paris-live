@@ -1,0 +1,33 @@
+<turbo-frame id="modal">
+    <div class="modal fade" id="edit_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit tweet #{{ tweet.id }}</h2>
+                </div>
+                <turbo-frame id="modal_body" class="modal-body">
+                    {{ form_start(form, {attr: {'data-turbo-frame': 'tweet_' ~ tweet.id }}) }}
+                    {{ form_widget(form) }}
+                    <button>save</button>
+                    {{ form_end(form) }}
+
+                    <script>
+                        document.querySelector('.modal-body button').addEventListener('click', (event) => {
+                            const form = document.querySelector('.modal-body form');
+                            form.addEventListener('turbo:submit-end', (event) => {
+                                if (event.detail.success) {
+                                    window.modal.hide();
+                                }
+                            });
+                        });
+                    </script>
+
+                </turbo-frame>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.modal = new Modal(document.getElementById('edit_modal'));
+        window.modal.show();
+    </script>
+</turbo-frame>

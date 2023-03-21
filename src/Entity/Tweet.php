@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TweetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TweetRepository::class)]
 class Tweet
@@ -14,6 +15,7 @@ class Tweet
     private ?int $id = null;
 
     #[ORM\Column(length: 140)]
+    #[Assert\Length(max: 140)]
     private ?string $content = null;
 
     #[ORM\Column]

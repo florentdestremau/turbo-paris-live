@@ -8,11 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TweetType extends AbstractType
+class CreateTweetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('content', TextareaType::class);
+        $builder
+            ->add('content', TextareaType::class, ['attr' => ['rows' => 5]])
+            ->add('author')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
