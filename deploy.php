@@ -13,7 +13,7 @@ add('writable_dirs', ['var/cache', 'var/log', 'var/sessions', 'public/build']);
 
 // Hosts
 
-host('159.223.213.127')
+host('sf-live.flodz.ovh')
     ->set('remote_user', 'deployer')
     ->set('deploy_path', '~/paris-live');
 
