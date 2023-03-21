@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/tweet')]
 class TweetController extends AbstractController
@@ -98,11 +99,21 @@ class TweetController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tweet_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_tweet_delete', methods: ['POST'])]
     public function delete(Request $request, Tweet $tweet, TweetRepository $tweetRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tweet->getId(), $request->request->get('_token'))) {
+            $id = $tweet->getId();
             $tweetRepository->remove($tweet, true);
+
+            sleep(1);
+
+            // If the request comes from Turbo, set the content type as text/vnd.turbo-stream.html and only send the HTML to update
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+            return $this->render('tweet/_delete.stream.html.twig', [
+                'id' => $id,
+            ]);
         }
 
         return $this->redirectToRoute('app_tweet_index', [], Response::HTTP_SEE_OTHER);
