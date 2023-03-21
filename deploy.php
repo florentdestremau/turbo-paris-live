@@ -11,6 +11,8 @@ add('shared_files', ['.env.local']);
 add('shared_dirs', ['var/log', 'var/sessions']);
 add('writable_dirs', ['var/cache', 'var/log', 'var/sessions', 'public/build']);
 
+set('keep_releases', 3);
+
 // Hosts
 
 host('sf-live.flodz.ovh')
