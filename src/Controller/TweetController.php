@@ -71,7 +71,6 @@ class TweetController extends AbstractController
     #[Route('/{id}/modal-edit', name: 'app_tweet_modaledit', methods: ['GET', 'POST'])]
     public function modalEdit(Request $request, Tweet $tweet, TweetRepository $tweetRepository): Response
     {
-        sleep(2);
         $form = $this->createForm(TweetType::class, $tweet,
             ['action' => $this->generateUrl('app_tweet_modaledit', ['id' => $tweet->getId()])]
         );
