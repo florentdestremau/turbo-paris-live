@@ -88,6 +88,16 @@ class TweetController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/stats', name: 'app_tweet_stats', methods: ['GET'])]
+    public function stats(Tweet $tweet): Response
+    {
+        sleep(1); // simulate a slow response
+
+        return $this->render('tweet/stats.html.twig', [
+            'tweet' => $tweet,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_tweet_delete', methods: ['POST'])]
     public function delete(Request $request, Tweet $tweet, TweetRepository $tweetRepository): Response
     {

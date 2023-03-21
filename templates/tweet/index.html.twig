@@ -17,6 +17,17 @@
                     <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}">edit</a>
                     <a href="{{ path('app_tweet_modaledit', {'id': tweet.id}) }}" data-turbo-frame="modal">modal edit</a>
                 </div>
+                <details class="m-3">
+                    <summary>see stats</summary>
+                    <div>
+                        <turbo-frame id="tweet_stats_{{ tweet.id }}" src="{{ path('app_tweet_stats', {'id': tweet.id}) }}" loading="lazy">
+                            <div class="d-flex align-items-center gap-3 ">
+                                <span>Loading...</span>
+                                <span class="spinner"></span>
+                            </div>
+                        </turbo-frame>
+                    </div>
+                </details>
             </turbo-frame>
         {% else %}
             <div class="notice">

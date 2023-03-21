@@ -24,6 +24,12 @@ class Tweet
     #[ORM\Column(length: 50)]
     private ?string $author = null;
 
+    #[ORM\Column(options: ['default' => 0])]
+    private int $likes = 0;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private int $retweets = 0;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -66,6 +72,30 @@ class Tweet
     public function setAuthor(string $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): self
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    public function getRetweets(): int
+    {
+        return $this->retweets;
+    }
+
+    public function setRetweets(int $retweets): self
+    {
+        $this->retweets = $retweets;
 
         return $this;
     }

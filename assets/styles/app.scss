@@ -19,10 +19,26 @@
 
 body {
     background-color: white;
-    padding-bottom: 3rem
+    padding-bottom: 3rem;
 }
 
 .btn-danger {
     background-color: #ff0000;
     border-color: #ff0000;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #007bff;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

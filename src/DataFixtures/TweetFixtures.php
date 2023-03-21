@@ -18,6 +18,8 @@ class TweetFixtures extends Fixture
             $tweet->setContent($faker->realText(140));
             $tweet->setAuthor($faker->firstName() . ' ' . $faker->lastName());
             $tweet->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 month', 'now')));
+            $tweet->setLikes($faker->numberBetween(0, 100));
+            $tweet->setRetweets($faker->numberBetween(0, 50));
 
             $manager->persist($tweet);
         }
