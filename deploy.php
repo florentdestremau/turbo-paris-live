@@ -20,8 +20,9 @@ host('sf-live.flodz.ovh')
     ->set('deploy_path', '~/paris-live');
 
 // Hooks
-task('deploy:build', function () {
-    run('cd {{release_path}} && npm install && npm run build');
-});
-after('deploy:vendors', 'deploy:build');
+task('deploy:npm', fn () => run('cd {{release_path}} && npm install'));
+task('deploy:build', fn () => run('cd {{release_path}} && npm run build'));
+
+after('deploy:vendors', 'deploy:npm');
+after('deploy:npm', 'deploy:build');
 after('deploy:failed', 'deploy:unlock');
