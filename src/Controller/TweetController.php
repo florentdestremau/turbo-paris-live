@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Tweet;
 use App\Form\CreateTweetType;
+use App\Form\SearchType;
 use App\Form\TweetType;
 use App\Repository\TweetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,11 +18,27 @@ use Symfony\UX\Turbo\TurboBundle;
 #[Route('/tweet')]
 class TweetController extends AbstractController
 {
-    #[Route('/', name: 'app_tweet_index', methods: ['GET'])]
-    public function index(TweetRepository $tweetRepository): Response
+    #[Route('/', name: 'app_tweet_index', methods: ['GET', 'POST'])]
+    public function index(TweetRepository $tweetRepository, Request $request): Response
     {
+        $form = $this->createForm(SearchType::class, null, ['method' => 'GET']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $search = $data['search'];
+            if ($search) {
+                $tweets = $tweetRepository->search($search);
+            }
+        }
+
+        if (!isset($tweets)) {
+            $tweets = $tweetRepository->findBy([], ['createdAt' => 'DESC']);
+        }
+
         return $this->render('tweet/index.html.twig', [
-            'tweets' => $tweetRepository->findBy([], ['createdAt' => 'DESC']),
+            'tweets' => $tweets,
+            'form' => $form,
         ]);
     }
 

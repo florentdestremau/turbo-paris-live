@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.2.3",
-        "simpledotcss": "^2.2.0"
+        "simpledotcss": "^2.2.0",
+        "stimulus-use": "^0.52.0"
     }
 }
