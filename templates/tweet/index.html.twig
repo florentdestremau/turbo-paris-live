@@ -3,9 +3,11 @@
 {% block title %}Tweet index{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between flex-wrap flex-sm-nowrap">
         <h1>Tweets</h1>
-        <img src="{{ asset('sfliveparis_2023.png') }}" alt="SF Live Paris 2023" style="width: 20rem;">
+        <div>
+            <img src="{{ asset('sfliveparis_2023.png') }}" alt="SF Live Paris 2023" style="max-width: 15rem;">
+        </div>
     </div>
     <div data-controller="filters">
         {{ form_start(form, {'attr': {
@@ -22,16 +24,18 @@
             <div data-filters-target="content">
                 {% for tweet in tweets %}
                     <turbo-frame id="tweet_{{ tweet.id }}" class="border rounded mb-3 d-block">
-                        <div class="d-flex">
+                        <div class="d-flex flex-md-nowrap flex-wrap">
                             <div class="p-3">{{ tweet.id }}</div>
                             <div class="p-3"
                                  data-controller="highlight"
                                  data-highlight-search-value="{{ form.search.vars.value }}">
                                 {{ tweet.content }}
                             </div>
-                            <div class="p-3 text-nowrap">{{ tweet.author }}</div>
+                            <div class="p-3 text-nowrap">
+                                <em>{{ tweet.author }}</em>
+                            </div>
                         </div>
-                        <div class="d-flex gap-3 p-3">
+                        <div class="d-flex flex-wrap gap-3 p-3">
                             <div>{{ tweet.createdAt ? tweet.createdAt|date('D, d M Y H:i:s') : '' }}</div>
                             <a href="{{ path('app_tweet_edit', {'id': tweet.id}) }}">edit</a>
                             <a href="{{ path('app_tweet_modaledit', {'id': tweet.id}) }}" data-turbo-frame="modal">modal
