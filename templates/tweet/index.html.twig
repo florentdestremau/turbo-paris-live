@@ -15,7 +15,7 @@
         }}) }}
         {{ form_widget(form.search, {'attr': {
             'data-controller': 'debounce',
-            'data-action': 'input->debounce#add'
+            'data-action': 'input->debounce#submit'
         }}) }}
         {{ form_end(form) }}
         <turbo-frame id="tweets">
