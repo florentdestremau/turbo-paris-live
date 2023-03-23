@@ -12,7 +12,8 @@
                     {{ form_end(form) }}
 
                     <script>
-                        document.querySelector('.modal-body button').addEventListener('click', (event) => {
+                        document.querySelector('.modal-body button')
+                            .addEventListener('click', () => {
                             const form = document.querySelector('.modal-body form');
                             form.addEventListener('turbo:submit-end', (event) => {
                                 if (event.detail.success) {
