@@ -25,4 +25,5 @@ task('deploy:build', fn () => run('cd {{release_path}} && npm run build'));
 
 after('deploy:vendors', 'deploy:npm');
 after('deploy:npm', 'deploy:build');
+after('deploy:cache:clear', 'database:migrate');
 after('deploy:failed', 'deploy:unlock');
